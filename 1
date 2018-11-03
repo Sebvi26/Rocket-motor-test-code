@@ -1,0 +1,72 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+
+FILE *file;
+int search( const int arr[], int target, int n);
+int main(int argc, char * argv[] ){
+  
+  //float time[1000];
+  float time;
+  float f[1000];
+  float e[1000];
+  float step = 0.083;
+  float a;
+  float b;
+  float m;
+  float y;
+  float E_p;
+  int i;
+  int n;
+  int g = 9.81;
+
+//leemos el archivo donde estàn los datos
+file = fopen("data2.txt", "r");
+
+//convertimos esos datos en arreglos
+//while (2 == fscanf(file, " %f, %f ", &a, &b))
+while (1 == fscanf(file, " %f ", &a))
+  {
+   //time[i]=a;
+   f[i]=a;
+
+        printf("%f, %d\n", a, i);
+        i++;
+        //numero total de datos
+        n = i;
+        printf("n=%d\n", n);
+    }
+     printf("n=%d\n", n);
+
+//si la toma de datos se realiza de manera vertical, el peso del motor afecta la toma de datos, para corregir este error hacemos lo siguiente:
+
+ m = (f[n-1]-f[0])/n;
+ printf("m=%f\n", m);
+// las unidades de los datos tomados son kilogramos, convertimos a newtons para tener datos de fuerza:
+ for ( i = 0; i<=(n-1); i++){
+  
+   e[i] = (f[i]-(m*i+f[1]))*g;
+   
+   printf("empuje=%f\n", e[i]);
+   }
+
+ float sum = 0.0 ;
+
+ //tiempo total de empuje
+ time = step * n;
+ printf("tiempo total de empuje=%f\n", time);
+
+ for ( i = 0; i<=(n-1); i++){
+ sum= sum + (step)*((e[i+1]+e[i])/2);
+ }
+//sum= sum + (1*((f[i+1]+f[i])/2));
+
+ printf("impulso total= %f\n", sum);
+
+ //empuje promedio
+ E_p = sum/time;
+ printf("Empuje promedio= %f\n", E_p);
+
+
+return 0;
+}
